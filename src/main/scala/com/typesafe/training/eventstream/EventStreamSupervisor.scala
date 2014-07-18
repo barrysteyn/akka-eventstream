@@ -1,7 +1,8 @@
 package com.typesafe.training.eventstream
 
 import events._
-import akka.actor.{Actor,ActorRef,Props}
+import akka.actor.{Actor,Props}
+
 
 object EventStreamSupervisor {
   def props: Props = Props(new EventStreamSupervisor)
@@ -22,5 +23,7 @@ class EventStreamSupervisor extends Actor {
   def receive = {
     case EventStreamSupervisor.Tick(request) => processTick(request)
     //case EventStreamSupervisor.UserInactive(sessionId) => statsActor !
+    case Stats.AverageVisitTime => statsActor forward Stats.AverageVisitTime
+    case Stats.TopLandingPages(n) => statsActor forward Stats.TopLandingPages(n)
   }
 }
