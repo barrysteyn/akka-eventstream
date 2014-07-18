@@ -13,5 +13,8 @@ object EventStreamSample extends App {
     requests = stream.tick
   } supervisor ! (EventStreamSupervisor.Tick(requests))
 
-
+  supervisor ! Stats.AverageVisitTime
+  supervisor ! Stats.TopLandingPages(5)
+  supervisor ! Stats.NumberOfRequestsPerBrowser
+  supervisor ! Stats.BusiestMinute
 }
